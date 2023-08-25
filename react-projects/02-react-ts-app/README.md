@@ -1,8 +1,23 @@
 # Proyecto con React y TypeScript
 
+---
+
+## 1. LazyLoad - Chunks - React Router Dom v6
+
+Llevar las rutas o el enrutamiento al siguiente nivel:
+
+- Aplicar Lazy Load en cada Componente
+- Aplicar Lazy Load por módulo
+
+La idea del módulo es que nos permita cargarlo y todas sus dependencias en conjunto.
+
+---
+
 # Herramientas
 
 - Para el enrutamiento (para la versión 6 en adelante ya tiene el tipado de typescript): https://reactrouter.com/en/main
+
+---
 
 # Comentarios
 
