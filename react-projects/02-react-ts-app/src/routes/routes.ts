@@ -15,15 +15,15 @@ export interface RouteInterface {
 }
 
 // cambiar el nombre de los chunks que aperecen al hacer el cambio entre rutas
-const lazy1 = lazy(
+const Lazy1 = lazy(
   () =>
     import(/* webpackChunkName: "LazyPage1" */ "../01-lazyload/pages/LazyPage1")
 );
-const lazy2 = lazy(
+const Lazy2 = lazy(
   () =>
     import(/* webpackChunkName: "LazyPage2" */ "../01-lazyload/pages/LazyPage2")
 );
-const lazy3 = lazy(
+const Lazy3 = lazy(
   () =>
     import(/* webpackChunkName: "LazyPage3" */ "../01-lazyload/pages/LazyPage3")
 );
@@ -33,21 +33,21 @@ export const routesArray: RouteInterface[] = [
     to: "/lazy1",
     path: "/lazy1",
     // Component: LazyPage1, // ya no sería solo un simple elemento JSX de React
-    Component: lazy1,
+    Component: Lazy1,
     name: "Lazy Page 1",
   },
   {
     to: "/lazy2",
     path: "/lazy2",
     // Component: LazyPage2,
-    Component: lazy2,
+    Component: Lazy2,
     name: "Lazy Page 2",
   },
   {
     to: "/lazy3",
     path: "/lazy3",
     // Component: LazyPage3,
-    Component: lazy3,
+    Component: Lazy3,
     name: "Lazy Page 3",
   },
 ];
