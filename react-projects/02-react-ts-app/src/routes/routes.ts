@@ -1,5 +1,6 @@
 // este archivo me ayudará a crear la barra de navegación y las rutas de forma dinámica y más fácil, también será más fácil si quiero agregar nuevas rutas
 import { lazy } from "react";
+import { NoLazyload } from "../01-lazyload/pages/NoLazyload";
 // import { LazyPage1, LazyPage2, LazyPage3 } from "../01-lazyload/pages";
 
 // se crea un tipo porque si se coloca de forma directa da un error: "Function type notation must be parenthesized when used in a union type."
@@ -49,5 +50,29 @@ export const routesArray: RouteInterface[] = [
     // Component: LazyPage3,
     Component: Lazy3,
     name: "Lazy Page 3",
+  },
+];
+
+/* **************************************************************************************** */
+const LazyLayout = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "LazyLayout" */ "../01-lazyload/layout/LazyLayout"
+    )
+);
+
+export const routesArrayModule: RouteInterface[] = [
+  {
+    to: "/lazyload/",
+    // para que todas las rutas que pasen por el path lazyload sean procesadas por ahí se coloca /* es decir, lazyload es parte de la ruta y todo lo que venga después va a ser procesado por ese mismo path lazyload
+    path: "/lazyload/*",
+    Component: LazyLayout,
+    name: "LazyLayout - Dash",
+  },
+  {
+    to: "/no-lazy",
+    path: "/no-lazy",
+    Component: NoLazyload,
+    name: "No Lazy",
   },
 ];
