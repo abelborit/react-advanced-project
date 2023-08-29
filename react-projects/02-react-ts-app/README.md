@@ -1,5 +1,13 @@
 # Proyecto con React y TypeScript
 
+---
+
+## 2. Patrones de componentes: Compound Component Pattern (Patrón de Componente Compuesto / Composición de componentes)
+
+Se usa el patrón de construcción de componentes llamado "Compound Component Pattern" el cual es muy usado por Material UI, ionic y muchos otros que trabajan con componentes previamente creados que se pueden anidar entre si mediante HOCs (Higher Order Components)
+
+---
+
 # Herramientas
 
 - Para el enrutamiento (para la versión 6 en adelante ya tiene el tipado de typescript): https://reactrouter.com/en/main
