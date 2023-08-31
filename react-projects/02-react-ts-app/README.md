@@ -6,6 +6,14 @@
 
 Se usa el patrón de construcción de componentes llamado "Compound Component Pattern" el cual es muy usado por Material UI, ionic y muchos otros que trabajan con componentes previamente creados que se pueden anidar entre si mediante HOCs (Higher Order Components)
 
+- ### 2.1 Patrones de componentes: Extensible Styles
+
+  Con la implementación anterior del Compound Component Pattern, hay algunos problemas a solucionar como por ejemplo los estilos, porque si se coloca un estilo mediante className o estilos en linea o clases por módulos, estos estilos no llegan a los componentes hijos o puede ser que sí lleguen pero no cumplan la función que estábamos esperando.
+
+  Por eso se usará el patrón "Extensible Styles" para extender la funcionalidad de nuestros componentes añadiendo la posibilidad de interpretar clases de CSS y/o estilos en línea (inline styles). Para lograrlo es necesario realizar ciertas modificaciones a las interfaces y componentes para tener un componente personalizable.
+
+  En ShoppingPage.tsx en los componentes ProductCard, ProductImage, ProductTitle y ProductButtons si quisiera añadir un className o estilos en línea con el atributo style, daría un error usando TypeScript diciendo en pocas palabras que className o style no es asignable a las propiedades definidas en el componente ProductCard o ProductImage o ProductTitle o ProductButtons, para solucionar eso, se usará este patrón y poder pasar estilos o clases a los componentes y estos puedan interpretarlos.
+
 ---
 
 # Herramientas
