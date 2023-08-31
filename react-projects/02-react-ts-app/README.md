@@ -6,7 +6,7 @@
 
 Se usa el patrón de construcción de componentes llamado "Compound Component Pattern" el cual es muy usado por Material UI, ionic y muchos otros que trabajan con componentes previamente creados que se pueden anidar entre si mediante HOCs (Higher Order Components)
 
-- ### 2.1 Patrones de componentes: Extensible Styles
+- ### 2.1 Patrones de componentes: Extensible Styles (Extensión de estilos)
 
   Con la implementación anterior del Compound Component Pattern, hay algunos problemas a solucionar como por ejemplo los estilos, porque si se coloca un estilo mediante className o estilos en linea o clases por módulos, estos estilos no llegan a los componentes hijos o puede ser que sí lleguen pero no cumplan la función que estábamos esperando.
 
