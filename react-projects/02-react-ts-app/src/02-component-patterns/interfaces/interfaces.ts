@@ -39,3 +39,12 @@ export interface ProductCardHOCProps {
   /* no es recomendable trabajar así porque al desestructurar le estoy dando limitantes y no lo estoy haciendo dinámico ya que si cambia algo o alguna nueva propiedad se agrega, entonces tendría que modificar la desestructuración y también modificar la propia interface del componente para que no hayan problemas con los HOCs de FORMA 1 o de FORMA 2 explicados en ShoppingPage.tsx */
   // Image: (props: { img?: string; title?: string; classNameProps?: string;}) => JSX.Element;
 }
+
+export interface HandleChangeArgs {
+  product: ProductInterface;
+  quantity: number;
+}
+
+export interface ProductInCartInterface extends ProductInterface {
+  quantity: number;
+}

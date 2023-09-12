@@ -14,6 +14,21 @@ Se usa el patrón de construcción de componentes llamado "Compound Component Pa
 
   En ShoppingPage.tsx en los componentes ProductCard, ProductImage, ProductTitle y ProductButtons si quisiera añadir un className o estilos en línea con el atributo style, daría un error usando TypeScript diciendo en pocas palabras que className o style no es asignable a las propiedades definidas en el componente ProductCard o ProductImage o ProductTitle o ProductButtons, para solucionar eso, se usará este patrón y poder pasar estilos o clases a los componentes y estos puedan interpretarlos.
 
+- ### 2.2 Patrones de componentes: Control Props (Control de Propiedades)
+
+  La idea con este patrón es ser capaz de controlar el estado interno y la emisión de los valores del componente a través de las propiedades, es decir, darle el control al desarrollador sobre las propiedades y estado del componente.
+
+  En este ejercicio se hará que unas cards del dashboard principal estén sincronizadas con unas cards más pequeñas que aparecerán en el extremo superior derecho simulando que es un carrito de compras. Al aumentar o disminuir la cantidad del producto tanto en el dashboard principal o en el carrito, ambos lugares deberían tener la misma cantidad.
+
+  Usualmente este patrón es el que se utiliza de manera tradicional en formularios, es decir:
+
+  ```
+  <input
+    value={ algún valor de solo lectura }
+    onChange={ alguna función que cambia el valor }
+  />
+  ```
+
 ---
 
 # Herramientas
