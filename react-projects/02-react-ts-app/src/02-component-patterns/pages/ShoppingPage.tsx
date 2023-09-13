@@ -4,13 +4,12 @@ import {
   ProductTitle,
   ProductButtons,
 } from "../components";
-import "../styles/custom-styles.css";
 import { productArray } from "../data/products";
-import { useShoppingCart } from "../hooks/useShoppingCart";
+import "../styles/custom-styles.css";
+
+const productElement = productArray[0];
 
 export const ShoppingPage = () => {
-  const { shoppingCartState, handleProductQuantityChange } = useShoppingCart();
-
   return (
     // <div>
     //     <h1>Shopping Store</h1>
@@ -99,72 +98,43 @@ export const ShoppingPage = () => {
           gap: "2rem",
         }}
       >
-        {/* el patrón Control Props es similar al que se usa en los input */}
-        {/* <input
-          value={counter}
-          onChange={(e) => setCounter(e.target.value)}
-        /> */}
-
-        {productArray.map((productElement) => (
-          <ProductCard
-            key={productElement.id}
-            product={productElement}
-            classNameProps="bg-dark"
-            /* esta es una función que recibe un evento el cual es el evento onChangeProps haciendo referencia al evento onChange de React y puede o no dispararse con argumentos y este evento nosotros podemos definir cómo queremos que se vea, en este caso tendrá como argumentos el producto y su cantidad */
-            onChangeProps={(event) => handleProductQuantityChange(event)}
-            /* si se define así significa que los argumentos que el evento onChangeProps emita serán los que van a mandarse a llamar en la función handleProductQuantityChange, si onChangeProps no emite nada entonces la función handleProductQuantityChange no tendrá ningún argumento y si emite algún valor entonces ese valor tiene que ser esperado por mi función handleProductQuantityChange */
-            // onChangeProps={handleProductQuantityChange}
-            valueProps={shoppingCartState[productElement.id]?.quantity || 0}
-          >
-            <ProductImage classNameProps="custom-image" />
-            <ProductTitle classNameProps="text-white" />
-            <ProductButtons classNameProps="custom-buttons" />
-          </ProductCard>
-        ))}
-      </div>
-
-      <div className="shopping-cart">
-        {
-          /* 
-            con Object.entries() me permite obtener un array de pares clave-valor de los elementos un objeto dado:
-            const objectExample = { foo: "bar", baz: 42 };
-            console.log(Object.entries(objectExample)); // [ ['foo', 'bar'], ['baz', 42] ]
-          */
-          /* ya obteniendo el arreglo entonces aplico el map y hago la desestructuración de un array */
-          Object.entries(shoppingCartState).map(([key, ProductInCart]) => (
-            <ProductCard
-              key={key}
-              product={ProductInCart}
-              classNameProps="bg-dark"
-              styleProps={{ width: "120px", padding: "10px" }}
-              onChangeProps={(event) => handleProductQuantityChange(event)}
-              valueProps={ProductInCart.quantity}
-            >
-              <ProductImage
-                classNameProps="custom-image"
-                styleProps={{ width: "100%", padding: "5px" }}
-              />
+        <ProductCard
+          key={productElement.id}
+          product={productElement}
+          classNameProps="bg-dark"
+          styleProps={{ color: "#fff" }}
+          initialValues={{
+            quantity: 4,
+            maxQuantity: 10,
+          }}
+        >
+          {/* pasar una función como un children y esta función retorna un JSX Element */}
+          {({
+            count,
+            maxQuantity,
+            isMaxQuantityReached,
+            product,
+            increaseOrDecreaseBy,
+            reset,
+          }) => (
+            <>
+              <ProductImage classNameProps="custom-image" />
+              <ProductTitle classNameProps="text-white" />
               <ProductButtons classNameProps="custom-buttons" />
-            </ProductCard>
-          ))
 
-          /* se puede trabajar también sin la desestructuración de un array y solo trabajar con sus posiciones */
-          // Object.entries(shoppingCartState).map((elementInCart) => (
-          //   <ProductCard
-          //     key={elementInCart[0]}
-          //     product={elementInCart[1]}
-          //     classNameProps="bg-dark"
-          //     styleProps={{ width: "120px", padding: "10px" }}
-          //     // onChangeProps={() => handleProductQuantityChange()}
-          //   >
-          //     <ProductImage
-          //       classNameProps="custom-image"
-          //       styleProps={{ width: "100%", padding: "5px" }}
-          //     />
-          //     <ProductButtons classNameProps="custom-buttons" />
-          //   </ProductCard>
-          // ))
-        }
+              <button onClick={reset}>Reset</button>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <button onClick={() => increaseOrDecreaseBy(-2)}>-2</button>
+                {!isMaxQuantityReached && (
+                  <button onClick={() => increaseOrDecreaseBy(2)}>+2</button>
+                )}
+              </div>
+              <span>Count: {count}</span>
+              <span>MaxQuantity: {maxQuantity}</span>
+              {JSON.stringify(product, null, 3)}
+            </>
+          )}
+        </ProductCard>
       </div>
 
       {/* para revisar el estado en la pantalla */}

@@ -1,4 +1,4 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, useCallback, useContext } from "react";
 import { ProductContext } from "./ProductCard";
 
 import styles from "../styles/styles.module.css";
@@ -15,7 +15,16 @@ export const ProductButtons = ({
   classNameProps,
   styleProps,
 }: ProductButtonsProps) => {
-  const { counterState, increaseOrDecreaseBy } = useContext(ProductContext);
+  const { counterState, maxQuantity, increaseOrDecreaseBy } =
+    useContext(ProductContext);
+
+  /* esta función retornará un true o un false si ya se alcanzó el valor máximo */
+  const isMaxReached = useCallback(
+    /* ver si maxQuantity existe usando la doble negación y ver si el counterState es exactamente igual al maxQuantity */
+    () => !!maxQuantity && counterState === maxQuantity,
+
+    [counterState, maxQuantity]
+  );
 
   return (
     <div
@@ -23,14 +32,18 @@ export const ProductButtons = ({
       style={styleProps}
     >
       <button
-        className={styles.buttonMinus}
+        className={`${styles.buttonMinus} ${
+          counterState === 0 && styles.disabledLeft
+        }`}
         onClick={() => increaseOrDecreaseBy(-1)}
       >
         -
       </button>
       <div className={styles.countLabel}>{counterState}</div>
       <button
-        className={styles.buttonAdd}
+        className={`${styles.buttonAdd} ${
+          isMaxReached() && styles.disabledRight
+        }`}
         onClick={() => increaseOrDecreaseBy(1)}
       >
         +

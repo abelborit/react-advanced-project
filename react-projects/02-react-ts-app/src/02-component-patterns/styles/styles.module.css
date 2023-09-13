@@ -85,3 +85,16 @@
 .buttonAdd:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.disabledLeft {
+  border-color: #555 !important;
+  border-right: 1px solid white !important;
+  color: #555 !important;
+  cursor: not-allowed;
+}
+.disabledRight {
+  border-color: #555 !important;
+  border-left: 1px solid white !important;
+  color: #555 !important;
+  cursor: not-allowed;
+}

@@ -1,9 +1,11 @@
-import { CSSProperties, ReactElement, createContext } from "react";
+import { CSSProperties, /* ReactElement */ createContext } from "react";
 import { useProduct } from "../hooks/useProduct";
 import {
   HandleChangeArgs,
+  ProductCardHandlers,
   ProductContextProps,
   ProductInterface,
+  initialValuesInterface,
 } from "../interfaces";
 import styles from "../styles/styles.module.css";
 
@@ -11,13 +13,16 @@ import styles from "../styles/styles.module.css";
 export interface ProductCardProps {
   product: ProductInterface;
   /* children es opcional y puede ser un componente o varios componentes */
-  children?: ReactElement | ReactElement[];
+  // children?: ReactElement | ReactElement[];
   // children?: React.ReactElement | React.ReactElement[]; /* sin importarlo y usarlo desde la importación global de React */
+  /* de esta forma puede aceptar una función que retorne un JSX Element y tendrá propiedades que en este caso como no sabemos si van a aumentar con el tiempo se coloca de forma genérica args que hará referencia a todas las propiedades */
+  children?: (args: ProductCardHandlers) => JSX.Element;
   classNameProps?: string;
   styleProps?: CSSProperties;
   // styleProps?: React.CSSProperties; /* sin importarlo y usarlo desde la importación global de React */
   onChangeProps?: (args: HandleChangeArgs) => void;
   valueProps?: number;
+  initialValues?: initialValuesInterface;
 }
 
 /* crear un contexto para compartir informaciónm del padre a sus hijos sin usar paso por propiedades y que sea más facil usar los HOCs */
@@ -31,24 +36,43 @@ export const ProductCard = ({
   classNameProps,
   styleProps,
   valueProps,
+  initialValues,
   onChangeProps,
 }: ProductCardProps) => {
   /* pasar como argumento al onChangeProps para que el custom hook useProduct maneje todo eso porque ya manjea el estado y se quiere que meneje todo junto. Otra forma podría ser que dentro de un useEffect() dentro de ProductCard y se mande a llamar a la función onChangeProps cada que cambie el counterState, pero en este caso haremos que el custom hook useProduct se encargue */
-  const { counterState, increaseOrDecreaseBy } = useProduct({
+  const {
+    counterState,
+    maxQuantity,
+    isMaxQuantityReached,
+    increaseOrDecreaseBy,
+    reset,
+  } = useProduct({
     product,
     valueProps,
+    initialValues,
     onChangeProps,
   });
 
   /* si se retorna todo (ProductImage, ProductTitle y ProductButtons) en este componente como un solo JSX de ProductCard, entonces limita al desarrollador porque por ejemplo si yo trabajé como una librería este ProductCard entonces el desarrollador tiene muy poco control y se limita a colocar solo las primeras propiedades del objeto productData = {} en ShoppingPage.tsx porque no van a poder ni mandar estilos, ni mandar más propiedades, ni agregar cosas, ni mandar el valor inicial, etc y para eso se tendrían que difinir muchas cosas y entonces ahí es donde se utilizan los HOCs o Higher Order Components para tener un componente padre y adentro sus hijos */
   /* colocar el Provider en el punto más alto de la aplicación, en este caso sería este componente ya que es el padre */
   return (
-    <Provider value={{ product, counterState, increaseOrDecreaseBy }}>
+    <Provider
+      value={{ product, counterState, maxQuantity, increaseOrDecreaseBy }}
+    >
       <div
         className={`${styles.productCard} ${classNameProps}`}
         style={styleProps}
       >
-        {children}
+        {/* se manda a ejecutar el children ya que ahora es una función la cual retorna elementos JSX */}
+        {children &&
+          children({
+            count: counterState,
+            isMaxQuantityReached: isMaxQuantityReached,
+            maxQuantity: initialValues?.maxQuantity,
+            product: product,
+            increaseOrDecreaseBy: increaseOrDecreaseBy,
+            reset: reset,
+          })}
 
         {/* pasar la información a través de propiedades */}
         {/* <ProductImage img={product.img} title={product.title} />

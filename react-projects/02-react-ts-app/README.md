@@ -29,6 +29,16 @@ Se usa el patrón de construcción de componentes llamado "Compound Component Pa
   />
   ```
 
+- ### 2.3 Patrones de componentes: State Initializer + Function Child + Render Props
+
+  Aquí se utilizará el patrón State Initializer junto al diseño de componentes que utiliza Formik.
+
+  Este patrón lo usa Formik que es una librería que se encarga de trabajar con formularios. La forma de trabajar de Formik es que nos crea un objeto en donde dentro de este objeto vamos a tener el control absoluto de lo que suecede en el componente o en los componentes que van a estar internamente.
+
+  Usando este patrón vamos a tener el control de cómo se renderizan, tener el control del estado inicial, poder cambiar el valor que tienen internamente nuestros componentes con el fin de que los desarrolladores que usen estos componentes tengan el poder de cambiar lo que desean o sino que nosotros le demos el poder de cambiar solo lo que nosotros queremos o lo necesario.
+
+  El patrón principalmente pide que se pueda ofrecer un estado inicial y una forma de re-establecer el estado a su forma original, pero aquí también se mejorará exponiendo funciones y nuevas propiedades. También se enviará una función como children, similar a la implementación de Formik.
+
 ---
 
 # Herramientas

@@ -20,6 +20,7 @@ export interface ProductInterface {
 export interface ProductContextProps {
   product: ProductInterface;
   counterState: number;
+  maxQuantity?: number;
   increaseOrDecreaseBy: (valueArgs?: number) => void;
 }
 
@@ -47,4 +48,18 @@ export interface HandleChangeArgs {
 
 export interface ProductInCartInterface extends ProductInterface {
   quantity: number;
+}
+
+export interface initialValuesInterface {
+  quantity?: number;
+  maxQuantity?: number;
+}
+
+export interface ProductCardHandlers {
+  count: number;
+  isMaxQuantityReached: boolean;
+  maxQuantity?: number;
+  product: ProductInterface;
+  increaseOrDecreaseBy: (valueArgs: number) => void;
+  reset: () => void;
 }
