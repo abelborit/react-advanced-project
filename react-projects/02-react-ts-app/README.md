@@ -41,6 +41,57 @@ Se usa el patrón de construcción de componentes llamado "Compound Component Pa
 
 ---
 
+## Subir el proyeto a NPM
+
+- Lo realizado se subirá a NPM y para eso se está dejando una guía del paso a paso (Desplegar-NPM.pdf) de una opción de cómo se podría subir a NPM y aquí también algunas instrucciones o información adicional.
+- Para poder desplegar en NPM se tiene que crear un proyecto usando la estructura de archivos y directorios que pide NPM para poder deplegarlo ahí. No es tanto una aplicación propia de react pero sería algo parecido.
+- Por ejemplo, al ir a NPM y ver algún paquete, NPM tiene ciertos lineamitos para poder desplegarlo ahí:
+  - La carpeta dist que sería el build de la aplicación
+  - Un ejemplo del uso del paquete (opcional)
+  - La carpeta lib que es en donde se colocará el código, sería como el src
+  - La carpeta test que son para las pruebas para demostrar que los componentes funcionan según lo esperado
+  - Archivo de LICENSE para saber que licencia va a tener el paquete, se puede usar el MIT que sería suficiente para este proyecto
+  - El archivo package.json sumándole algunas cosas:
+    - name
+    - version
+    - description
+    - main (punto de entrada de la aplicación)
+    - types (archivo de definición de TypeScript)
+    - scripts
+    - repository (para que aparezca en NPM)
+    - keywords
+    - homepage
+- Se utilizará tsdx ya que creará todo lo necesario para que sea un paquete que se pueda subir facilmente a NPM. Esto creará una nueva carpeta donde se tendrá que migrar el códido del proyecto al código del paquete.
+
+#### Estructura del proyecto que nos creo TSDX
+
+- Con la estructura que nos creó TSDX es todo lo necesario para poder hacer el despliegue de nuestro proyecto, que ahora será un paquete, hacia NPM.
+- Luego desde este proyecto se pasarán algunas cosas al paquete: assets, components, hooks (solo useProduct.ts), interfaces, styles y de pages solo el componente ProductCard y sus hijos como tal para tenerlo como un ejemplo.
+- En el index.tsx del src del ahora paquete que se subirá a NPM, se colocarán todas las exportaciones que serán vistas desde el mundo exterior, es decir, lo que el desarrollador utilizará e importará en su proyecto. Para esto solo se necesitaría exportar los componentes ya que solo eso quiero que se exponga ya que lo demás quedaría de forma interna, se podría copiar lo que está en el archivo barril del index.ts de la carpeta components o sino se puede hacer una exportación de todo lo que está adentro "export \* from './components';" donde se hará referencia a todo lo que tenga el archivo barril.
+- Cuando se quieran usar css modules, dará un error cuando se haga el npm run start porque dirá que se quieren usar archivos de css como si fueran de javascript, y para solucionar esto se tienen que hacer algunas configuraciones para permitir importaciones de estilos css como módulos.
+  - La configuración que se tiene que hacer está en el PDF del proyecto (Desplegar-NPM.pdf) en el paso 03 pero esta configuración se tiene que hacer por dos razones, una si se usan los css modules y otra si se usan imágenes ya que estas también se están cargando como módulos por ejemplo en el componente ProductImage.tsx. Se creará un archivo tsdx.config.js y cuando se haga un build o cualquier procedimiento pasará por ese archivo y también darse cuenta que se está haciendo la importación tipica de NODE usando require y no de ECMAScript-6 con import y eso es porque se está en node y no es un archivo de typescript y si se quiere hacer usando import se tendrían que hacer unas configuraciones especiales al proyecto y entonces por eso se trabaja como se haría con node por defecto.
+  - Se tiene que colocar en las devDependencies "@rollup/plugin-image": "^2.1.1" y "rollup-plugin-postcss": "^4.0.1" o sino instalarlo usando npm i -D rollup-plugin-postcss@4.0.1 y npm i -D @rollup/plugin-image@2.1.1 (según lo que se utilizó en el video, si se usará la versión más reciente de cada uno entonces ver qué nueva configuración se necesita hacer). Se instalan para decirle a TSDX o al proyecto cómo cargar las imágenes y los css modules.
+- Con el paso anterior se seguirá con el problema entonces se tiene que crear el archivo de definición de los módulos que vienen a ser los typings los cuales dirán a typescript cómo cargar lo módulos. Este archivo typings.d.ts estará en el src del paquete y tendrá:
+
+  ```ts
+  declare module "*.css" {
+    const content: { [className: string]: string };
+    export default content;
+  }
+
+  declare module "*.jpg" {
+    const value: any;
+    export default value;
+  }
+  ```
+
+- Tenemos que hacer la importación de React (import React from 'react';) en donde hayan componentes porque regresan un JSX porque si no nos saldrá un error en la compilación.
+- Al hacer los test nos dará un problema por la parte del css module y las imágenes que las estamos cargando como módulos entonces se debe instalar como dependencia de desarrollo identity-obj-proxy haciendo un "npm i -D identity-obj-proxy".
+- Antes de hacer el npm publish se tiene que hacer un **git add .** luego colocar el **git commit -m "mensaje a colocar"** y después se tiene que hacer el release tag usando **git tag -a v0.0.1 -m "Version 0.0.1 ready!"** cambiando el versionado y el mensaje conforme se actualiza el paquete por ejemplo **git tag -a v0.0.2 -m "Version 0.0.2 ready!"** por último hacer el **git push origin main** o **git push** y también hacer el **git push --tags**
+- En el repositorio de github se tiene que ir a la parte de los tags y crear el release colocándo un release title simple y hacer click en Publish release y con eso ya es la versión que está lista para subir a NPM.
+
+---
+
 # Herramientas
 
 - Para el enrutamiento (para la versión 6 en adelante ya tiene el tipado de typescript): https://reactrouter.com/en/main
