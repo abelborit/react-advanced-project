@@ -1,5 +1,27 @@
 # Proyecto con React y TypeScript
 
+---
+
+## 3. Formularios
+
+Se trabajará con Formik (https://formik.org/) para tener un mayor control con los formularios ya que estos tienen cierto comportamiento esperado, por ejemplo si se escriben mal los campos entonces dará un mensaje de error, si se quiere capturar los valores de los formularios entonces se utilizaría un useState o useReducer, etc. Entonces al hacerlo manualmente se nos pueden escapar algunas cosas y luego se pueden hacer tediosas. Con Formik se tendrá mayor control y será más facil, también se hará validaciones automáticas con Yup que es recomendando por el mismo Formik.
+
+Se estarán implementando las bases y temas avanzados de Formik: (npm install formik --save)
+
+- useFormik
+- Formik Component
+- Formik Context
+- useField
+- Formik Custom Components
+- Custom Components
+- Metadata de los inputs
+- Abstractation
+- Yup (npm i yup)
+  - Validaciones tipicas
+  - Validaciones personalizadas
+
+---
+
 # Herramientas
 
 - Para el enrutamiento (para la versión 6 en adelante ya tiene el tipado de typescript): https://reactrouter.com/en/main
