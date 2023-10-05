@@ -20,6 +20,15 @@ Se estarán implementando las bases y temas avanzados de Formik: (npm install fo
   - Validaciones tipicas
   - Validaciones personalizadas
 
+También se crearán formularios dinámicos basados en data en formato JSON. El objetivo principal es tener la idea de formularios dinámicos y que se logren adaptar a nuestras necesidades particulares.
+
+Se trabajará con:
+
+- Construir inputs de forma dinámica
+- Construir validaciones basados en propiedades
+- Selects, Inputs
+- Algunas validaciones
+
 ---
 
 # Herramientas

@@ -40,7 +40,7 @@ export const MyTextInput = (props: MyTextInputProps) => {
               color: `${metadata.touched && metadata.error ? "red" : ""}`,
             }}
           >
-            ({field.value.length} Characters)
+            ({field?.value ? field?.value?.length : 0} Characters)
           </p>
         )}
       </div>

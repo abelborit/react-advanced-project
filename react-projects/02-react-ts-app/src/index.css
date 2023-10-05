@@ -98,7 +98,7 @@ nav {
   height: 100vh;
   overflow-y: auto;
   text-align: center;
-  width: 250px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

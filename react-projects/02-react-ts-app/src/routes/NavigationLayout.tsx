@@ -12,6 +12,8 @@ import {
   FormikYupPage,
   FormikComponents,
   FormikAbstraction,
+  FormikBasicNoDynamic,
+  FormikBasicDynamic,
 } from "../03-forms/pages";
 
 import reactLogo from "../assets/react.svg";
@@ -70,6 +72,24 @@ export const NavigationLayout = () => {
 
             <li>
               <NavLink
+                to="/formik-basic-no-dynamic"
+                className={({ isActive }) => (isActive ? "nav-active" : "")}
+              >
+                Formik Basic No Dynamic
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/formik-basic-dynamic"
+                className={({ isActive }) => (isActive ? "nav-active" : "")}
+              >
+                Formik Basic Dynamic
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
                 to="/users"
                 className={({ isActive }) => (isActive ? "nav-active" : "")}
               >
@@ -86,6 +106,14 @@ export const NavigationLayout = () => {
             <Route path="/formik-yup" element={<FormikYupPage />} />
             <Route path="/formik-components" element={<FormikComponents />} />
             <Route path="/formik-abstraction" element={<FormikAbstraction />} />
+            <Route
+              path="/formik-basic-no-dynamic"
+              element={<FormikBasicNoDynamic />}
+            />
+            <Route
+              path="/formik-basic-dynamic"
+              element={<FormikBasicDynamic />}
+            />
             <Route path="/users" element={<h1>Users Page</h1>} />
 
             <Route path="*" element={<Navigate to="/home" replace />} />
